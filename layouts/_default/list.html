@@ -38,7 +38,19 @@
   {{- if not (.Param "disableAnchoredHeadings") }}
   {{- partial "anchored_headings.html" .Content -}}
   {{- else }}{{ .Content }}{{ end }}
+
+  {{/* FP: adding section/category tags here (they can be defined on the .md post describing the section/category): */}}
+  <div>
+    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+    <ul class="post-tags">
+      {{- range ($.GetTerms $tags) }}
+      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+  </div>
+
 </div>
+
 {{- end }}
 
 {{- $pages := union .RegularPages .Sections }}
