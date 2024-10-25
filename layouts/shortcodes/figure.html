@@ -1,7 +1,7 @@
 <figure{{ if or (.Get "class") (eq (.Get "align") "center") }} class="
            {{- if eq (.Get "align") "center" }}align-center {{ end }}
            {{- with .Get "class" }}{{ . }}{{- end }}"
-{{- end -}}>
+        {{- end -}}>
     {{- if .Get "link" -}}
         <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
     {{- end }}
@@ -11,8 +11,12 @@
          {{- end -}}
          {{- with .Get "width" }} width="{{ . }}"{{ end -}}
          {{- with .Get "height" }} height="{{ . }}"{{ end -}}
-    /> <!-- Closing img tag -->
+    />
     {{- if .Get "link" }}</a>{{ end -}}
+    {{/* 
+
+        Caption under the image: 
+    */}}
     {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
         <figcaption>
             {{ with (.Get "title") -}}
@@ -20,6 +24,9 @@
             {{- end -}}
             {{- if or (.Get "caption") (.Get "attr") -}}<p>
                 {{- .Get "caption" | markdownify -}}
+                {{/* 
+                    Attribution with optional link: 
+                */}}
                 {{- with .Get "attrlink" }}
                     <a href="{{ . }}">
                 {{- end -}}

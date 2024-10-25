@@ -1,7 +1,12 @@
+{{/* List of posts BUT also includes special processing for home page */}}
 {{- define "main" }}
 
 {{- if (and site.Params.profileMode.enabled .IsHome) }}
+{{/* ------------------------------------------------------------------------------------------------------------------------- */}}
+
 {{- partial "index_profile.html" . }}
+
+{{/* ------------------------------------------------------------------------------------------------------------------------- */}}
 {{- else }} {{/* if not profileMode */}}
 
 {{- if not .IsHome | and .Title }}
@@ -40,6 +45,7 @@
 
 {{- $pages := union .RegularPages .Sections }}
 
+{{/* ------------------------------------------------------------------------------------------------------------------------- */}}
 {{- if .IsHome }}
 {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}

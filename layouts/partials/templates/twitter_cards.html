@@ -1,6 +1,8 @@
 {{- if .Params.cover.image -}}
 <meta name="twitter:card" content="summary_large_image" />
-{{- if (ne $.Params.cover.relative true) }}
+
+{{/* FP: Clarified comparisation ne true -> eq false */}}
+{{- if (eq $.Params.cover.relative false) }}
 <meta name="twitter:image" content="{{ .Params.cover.image | absURL }}" />
 {{- else }}
 <meta name="twitter:image" content="{{ (path.Join .RelPermalink .Params.cover.image ) | absURL }}" />

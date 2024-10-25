@@ -3,7 +3,9 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
 {{- if .Params.cover.image -}}
-{{- if (ne .Params.cover.relative true) }}
+
+{{/* FP: Clarified comparisation ne true -> eq false */}}
+{{- if (eq .Params.cover.relative false) }}
 <meta property="og:image" content="{{ .Params.cover.image | absURL }}" />
 {{- else}}
 <meta property="og:image" content="{{ (path.Join .RelPermalink .Params.cover.image ) | absURL }}" />
