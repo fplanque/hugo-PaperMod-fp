@@ -23,7 +23,7 @@
 
 .buttons {
     flex-wrap: wrap;
-    max-width: 400px;
+    /* max-width: 400px; */
 }
 
 .button {
@@ -32,6 +32,7 @@
     margin: 8px;
     padding: 6px;
     transition: transform 0.1s;
+    width: 180px;   /* minimum  */
 }
 
 .button-inner {
