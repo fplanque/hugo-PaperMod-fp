@@ -47,9 +47,11 @@
     transform: scale(0.96);
 }
 
+/* FP: removed this in order to show cover images in tag pages
 .tag-entry .entry-cover {
     display: none;
 }
+*/
 
 .entry-header h2 {
     font-size: 24px;
