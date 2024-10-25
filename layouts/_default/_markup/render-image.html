@@ -1,1 +1,8 @@
-<img loading="lazy" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />
+{{/* This displays images that appear in the text of a post 
+ FP: added display of captions
+ TODO: responsive sizes
+*/}}
+<figure class="entry-cover">{{/* hijacking existing entry-cover style because it works for the purpose */}}
+	<a href="{{ .Destination | safeURL }}" title="View Full Size Image"><img loading="lazy" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} style="max-height: 450px; width: auto; margin-left:auto; margin-right:auto; " /></a>
+	{{ with .Title}} <p>{{ . }}</p> {{ end }}
+</figure>
