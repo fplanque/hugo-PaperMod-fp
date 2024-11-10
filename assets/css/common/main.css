@@ -64,3 +64,13 @@ div.highlight:hover .copy-code,
 pre:hover .copy-code {
     display: block;
 }
+
+mark {
+    background-color: #FFEDAE;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+div.comments {
+    margin-top: 40px;
+}
