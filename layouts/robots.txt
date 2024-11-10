@@ -1,5 +1,7 @@
+# robots.txt 
+# IsProduction:{{ hugo.IsProduction }} env:{{ site.Params.env }}
 User-agent: *
-{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+{{- if or hugo.IsProduction (eq site.Params.env "production") }}
 Disallow:
 {{- else }}
 Disallow: /
