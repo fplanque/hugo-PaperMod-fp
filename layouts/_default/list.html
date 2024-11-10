@@ -103,8 +103,13 @@
   {{- if (ne (.Param "hideSummary") true) }}
   <div class="entry-content">
 
-	{{/* FP: use .Description rather than .Summary */}}
-    <p>{{ .Description | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+	{{- /* FP: if present, use .Description rather than .Summary */}}
+   <p>
+      {{- $content := or .Description .Summary | plainify | htmlUnescape -}}
+      {{- $content -}}
+      {{- if and (not (hasSuffix $content ".")) (or (not .Description) .Truncated) -}}...{{- end -}}
+  </p>
+
 
   </div>
   {{- end }}
