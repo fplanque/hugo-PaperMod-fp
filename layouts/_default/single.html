@@ -1,5 +1,7 @@
 {{- define "main" }}
 
+{{ partial "breadcrumbs.html" . }}
+
 {{/* FP: Add post navigation links */}}
 {{- if (.Param "ShowPostNavLinks") }}
   {{- partial "post_nav_links.html" . }}
@@ -7,8 +9,6 @@
 
 <article class="post-single">
   <header class="post-header">
-    {{ partial "breadcrumbs.html" . }}
-
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
     <ul class="post-tags">
       {{- range ($.GetTerms $tags) }}

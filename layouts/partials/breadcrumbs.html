@@ -1,19 +1,49 @@
 {{- if (.Param "ShowBreadCrumbs") -}}
-<div class="breadcrumbs">
-    {{- $url := replace .Parent.Permalink (printf "%s" site.Home.Permalink) "" }}
-    {{- $lang_url := strings.TrimPrefix (printf "%s/" .Lang) $url -}}
-
-    <a href="{{ "" | absLangURL }}">{{ i18n "home" | default "Home" }}</a>
-    {{- $scratch := newScratch }}
-    {{- range $index, $element := split $lang_url "/" }}
-
-    {{- $scratch.Add "path" (printf "%s/" $element )}}
-    {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
-
-    {{- if (and ($bc_pg) (gt (len . ) 0))}}
-    {{- print "&nbsp;»&nbsp;" | safeHTML -}}<a href="{{ $bc_pg.Permalink }}">{{ $bc_pg.Name }}</a>
-    {{- end }}
-
-    {{- end -}}
-</div>
+<nav class="breadcrumbs" aria-label="Breadcrumbs">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="{{ .Site.BaseURL }}">Home</a>
+    </li>
+    {{ $ancestors := .Ancestors.Reverse }}
+    {{ if gt (len $ancestors) 0 }}
+      {{ range after 1 $ancestors }}
+        <li class="breadcrumb-item">
+          <a href="{{ .RelPermalink }}">
+            {{ $title := "" }}
+            {{ with .Title }}
+              {{ $title = . }}
+            {{ else }}
+              {{ with .LinkTitle }}
+                {{ $title = . }}
+              {{ else }}
+                {{ with .Section }}
+                  {{ $title = (humanize .) }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            {{ $title }}
+          </a>
+        </li>
+      {{ end }}
+    {{ end }}
+    {{/* Add current page */}}
+    <li class="breadcrumb-item">
+      <span aria-current="page">
+        {{ $title := "" }}
+        {{ with .Title }}
+          {{ $title = . }}
+        {{ else }}
+          {{ with .LinkTitle }}
+            {{ $title = . }}
+          {{ else }}
+            {{ with .Section }}
+              {{ $title = (humanize .) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ $title }}
+      </span>
+    </li>
+  </ol>
+</nav>
 {{- end -}}
