@@ -20,9 +20,10 @@ Special home page
 
             {{/* TODO: use a proper srcset; in the meantime x2 for hidpi */}}
             {{ $width2x := mul .imageWidth 2 }}
-            {{- $img = $img.Resize (printf "%dx" $width2x) }}
+            {{/* - $img_2x := $img.Resize (printf "%dx webp q85" $width2x) : creates files larger than desired */}}
+            {{- $img_2x := $img.Resize (printf "%dx" $width2x) }}
 
-            <img draggable="false" src="{{ $img.Permalink }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
+            <img draggable="false" src="{{ $img_2x.Permalink }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
                 height="{{ .imageWidth }}" width="{{ .imageWidth }}" />
         {{- end }}
         <h1>{{ .title | default site.Title | markdownify }}</h1>
