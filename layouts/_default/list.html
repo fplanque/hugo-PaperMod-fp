@@ -53,13 +53,20 @@
 
 {{- end }}
 
-{{- $pages := union .RegularPages .Sections }}
+{{/* --------------------------------------------------------------------------------------------------------------- */}}
 
-{{/* ------------------------------------------------------------------------------------------------------------------------- */}}
+
+{{/* Page selection logic */}}
+{{- $pages := "" }}
 {{- if .IsHome }}
-{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+    {{- /* Special list for Home Page */}}
+    {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+    {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+{{- else }}
+    {{- /* Now create a list of Sections followed by a list of pages that are not in a subsection: */}}
+    {{- $pages = union .Sections .RegularPages }}
 {{- end }}
+
 
 {{- $paginator := .Paginate $pages }}
 
@@ -88,6 +95,10 @@
   {{/* $isHidden: {{ $isHidden }} */}}
   {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
   <header class="entry-header">
+    {{- if .IsSection }}
+      {{- $count := len .RegularPagesRecursive -}}
+      <p style="align: center; float: right; font-weight: 700">{{ $count }} post{{- if ne $count 1 }}s{{ end }}</p>
+    {{ end }}
     <h2 class="entry-hint-parent">
       {{- .Title }}
       {{- if .Draft }}
@@ -113,11 +124,18 @@
 
   </div>
   {{- end }}
+
   {{- if not (.Param "hideMeta") }}
   <footer class="entry-footer">
-    {{- partial "post_meta.html" . -}}
+    {{- if .IsSection }}
+      {{- $latest := first 1 (.RegularPagesRecursive.ByDate.Reverse) -}}
+      {{ with $latest }}Latest post: {{ (index . 0).Date.Format "January 2, 2006" }}{{ end }}
+    {{- else }}
+      {{- partial "post_meta.html" . -}}
+    {{- end }}
   </footer>
   {{- end }}
+
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
 </article>
 {{- end }}
