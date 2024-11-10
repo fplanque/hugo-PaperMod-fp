@@ -1,3 +1,12 @@
 {{- /* Comments area start */ -}}
 {{- /* to add comments read => https://gohugo.io/content-management/comments/ */ -}}
+{{- /* Hyvor fpcom TODO: allow to override .Slug with a comment ID in case we rename later */ -}}
+<div class="comments">
+	<script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
+	<hyvor-talk-comments
+		website-id="{{ .Param "hyvor_website_id" }}"
+		page-id="{{ .Slug }}"
+		loading="lazy"
+	></hyvor-talk-comments>
+</div>
 {{- /* Comments area end */ -}}

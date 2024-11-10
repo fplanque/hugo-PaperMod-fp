@@ -55,22 +55,20 @@
 
   <footer class="post-footer">
 
-	{{/* FP: Removed tags and .post navigation links */}}
+    {{- if (.Param "comments") }}
+    {{- partial "comments.html" . }}
+    {{- end }}
 
     {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
       {{- partial "share_icons.html" . -}}
     {{- end }}
 	
-	{{/* FP: Add post navigation links */}}
     {{- if (.Param "ShowPostNavLinks") }}
       {{- partial "post_nav_links.html" . }}
     {{- end }}
 	
   </footer>
 
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
 </article>
 
 {{- end }}{{/* end main */}}
