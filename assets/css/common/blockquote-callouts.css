@@ -1,0 +1,37 @@
+/* alert-specific styling */
+.post-content blockquote.alert {
+    /* Default folor for TLDR, TIP */
+    background-color: #ECF9F9;
+    border-radius: 4px;
+    padding: 20px 20px 1px;
+    border: none;
+}
+
+.alert-heading {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #06BFBC;
+}
+
+.post-content blockquote.alert-warning,
+.post-content blockquote.alert-question {
+    background-color: #FFF2E9;
+}
+.alert-warning .alert-heading,
+.alert-question .alert-heading {
+    color: #EC7600;
+}
+
+.post-content blockquote.alert-danger {
+    background-color: #FFECED;
+}
+.alert-danger .alert-heading {
+    color: #EA3247;
+}
+
+.post-content blockquote.alert-info {
+    background-color: #E9F1FD;
+}
+.alert-info .alert-heading {
+    color: #0D6DDE;
+}

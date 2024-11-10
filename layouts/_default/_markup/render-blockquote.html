@@ -1,0 +1,29 @@
+{{/* This renders blockquotes, including alerts/admonitions/callouts */}}
+{{ $emojis := dict
+  "caution" ":exclamation:"
+  "danger" ":exclamation:"
+  "important" ":information_source:"
+  "info" ":information_source:"
+  "note" ":information_source:"
+  "question" ":question:"
+  "tip" ":bulb:"
+  "tldr" ":information_source:"
+  "warning" ":exclamation:"
+}}
+{{ if eq .Type "alert" }}
+  <blockquote class="alert alert-{{ .AlertType }}">
+    <p class="alert-heading">
+      {{ transform.Emojify (index $emojis .AlertType) }}
+      {{ with .AlertTitle }}
+        {{ . }}
+      {{ else }}
+        {{ or (i18n .AlertType) (title .AlertType) }}
+      {{ end }}
+    </p>
+    {{ .Text }}
+  </blockquote>
+{{ else }}
+  <blockquote>
+    {{ .Text }}
+  </blockquote>
+{{ end }}
